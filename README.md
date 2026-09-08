@@ -19,7 +19,7 @@ This tool provides a graphical user interface for running single-participant fix
 
 #### Annotated UI Layout & Workflow
 
-![UI Example](docs\algo_rank_example_annotated.png)
+![UI Example](docs/algo_rank_example_annotated.png)
 
 ##### Component Reference
 
