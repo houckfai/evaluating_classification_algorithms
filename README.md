@@ -141,6 +141,6 @@ In the event of a tie in mean ranks, the tie is broken using the following stric
 
 #### Further Information
 More detailed documentation is available in the docs folder. Please see:
-* docs\gui_single_ranking_pipeline.md
-* docs\run_single_ranking_pipeline.md
+* docs/gui_single_ranking_pipeline.md
+* docs/run_single_ranking_pipeline.md
 ---
