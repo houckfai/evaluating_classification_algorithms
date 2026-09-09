@@ -4,9 +4,9 @@
 
 ## Repository Overview:
 * **algo_ranking folder**: contains the GUI wrapper and function to run single-participant fixation data through cluster metric evaluation. 
-* **analysis folder**: contains the custom code used in the paper's analysis.
-* **docs folder**: contains documentation for both algo_ranking and analysis code.
-* **example_data folder**: contains example data files for input to the algo_ranking GUI.
+* **src folder**: contains the source code used in the paper's analysis.
+* **docs folder**: contains documentation for both algorithm ranking and source code.
+* **example_data folder**: contains example data files for input to the algorithm ranking GUI.
 * **external_modifications**: contains the external code files modified for the paper's analysis.
 
 ---
