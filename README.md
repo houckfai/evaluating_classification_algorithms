@@ -1,4 +1,4 @@
-# Evaluating Fixation Classification Algorithms in Motor Control: Downstream Impacts on Behavioral Metrics
+# Evaluating Eye Movement Classification Algorithms in Motor Control: Downstream Impacts on Behavioral Metrics
 
 #### This is the repository accompanying [insert citation]. 
 
