@@ -38,6 +38,48 @@ This tool provides a graphical user interface for running single-participant fix
 
 ---
 
+#### Determining Rank Winner
+
+The primary evaluation criterion is the Borda Count, represented by `mean_ranks = mean(ranks, 2)`. The algorithm with the lowest mean rank is selected as `borda_winner`. 
+
+In the event of a tie in mean ranks, the tie is broken using the following strict hierarchy:
+
+```
+                  +-----------------------------------+
+                  |      Evaluate Mean Ranks          |
+                  +-----------------------------------+
+                                    |
+                        Is min mean rank unique?
+                        /                      \
+                       /                        \
+                     YES!                       NO...
+                     /                            \
+        +-------------------------+    +----------------------------------+
+        | Declare Winner          |    | Stage 1 Tie-Break:               |
+        +-------------------------+    | Compare 1st-Place Win Counts     |
+                                       +----------------------------------+
+                                                        |
+                                          Is highest win count unique?
+                                          /                        \
+                                       YES!                         NO...
+                                        /                            \
+                           +-------------------------+  +-------------------------------+
+                           | Declare Winner          |  | Stage 2 Tie-Break:            |
+                           +-------------------------+  | Compare Relative Gap          |
+                                                        | Statistic Score               |
+                                                        +-------------------------------+
+                                                                        |
+                                                        +-------------------------------+
+                                                        | Declare Winner                |
+                                                        +-------------------------------+
+```
+
+1. **Stage 1 (Primary Score)**: Select algorithm(s) with the minimum `mean_ranks`.
+2. **Stage 2 (First-Place Wins)**: If multiple algorithms share the minimum mean rank, select the algorithm with the highest number of 1st-place metric ranks (`first_place_wins`).
+3. **Stage 3 (Gap Statistic Priority)**: If a tie still persists, select the candidate with the highest raw Gap Statistic value (`metrics.gap`) among the remaining tied algorithms.
+
+---
+
 #### Dependencies
 * Statistics and Machine Learning Toolbox
 * Parallel Computing Toolbox
@@ -84,48 +126,6 @@ results =
   majority_winner: 'i2mc'        % Majority vote winner
          max_wins: 3             % Count of metric first-place finishes
 ```
-
----
-
-#### Determining Rank Winner
-
-The primary evaluation criterion is the Borda Count, represented by `mean_ranks = mean(ranks, 2)`. The algorithm with the lowest mean rank is selected as `borda_winner`. 
-
-In the event of a tie in mean ranks, the tie is broken using the following strict hierarchy:
-
-```
-                  +-----------------------------------+
-                  |      Evaluate Mean Ranks          |
-                  +-----------------------------------+
-                                    |
-                        Is min mean rank unique?
-                        /                      \
-                       /                        \
-                     YES!                       NO...
-                     /                            \
-        +-------------------------+    +----------------------------------+
-        | Declare Winner          |    | Stage 1 Tie-Break:               |
-        +-------------------------+    | Compare 1st-Place Win Counts     |
-                                       +----------------------------------+
-                                                        |
-                                          Is highest win count unique?
-                                          /                        \
-                                       YES!                         NO...
-                                        /                            \
-                           +-------------------------+  +-------------------------------+
-                           | Declare Winner          |  | Stage 2 Tie-Break:            |
-                           +-------------------------+  | Compare Relative Gap          |
-                                                        | Statistic Score               |
-                                                        +-------------------------------+
-                                                                        |
-                                                        +-------------------------------+
-                                                        | Declare Winner                |
-                                                        +-------------------------------+
-```
-
-1. **Stage 1 (Primary Score)**: Select algorithm(s) with the minimum `mean_ranks`.
-2. **Stage 2 (First-Place Wins)**: If multiple algorithms share the minimum mean rank, select the algorithm with the highest number of 1st-place metric ranks (`first_place_wins`).
-3. **Stage 3 (Gap Statistic Priority)**: If a tie still persists, select the candidate with the highest raw Gap Statistic value (`metrics.gap`) among the remaining tied algorithms.
 
 ---
 
